@@ -1,0 +1,3 @@
+---
+# defaults file for message_queue
+RabbitMq_pass : test123

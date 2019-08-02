@@ -1,0 +1,26 @@
+
+
+- name: Set MariaDB root password before installing
+  debconf: name='mariadb-server' question='mariadb-server/root_password' value='{{MariaDB_root_pass | quote}}' vtype='password'
+
+- name: Confirm MariaDB root password before installing
+  debconf: name='mariadb-server' question='mariadb-server/root_password_again' value='{{MariaDB_root_pass | quote}}' vtype='password'
+
+- name: Install MariaDB
+  apt: package={{ item }} state=absent force=yes update_cache=yes cache_valid_time=3600
+  with_items:
+    - mariadb-server
+    - mariadb-client
+    - python-mysqldb
+- name: MySQL OpenStack-related settings
+  become: yes
+  template:
+    src: mysqld_openstack.cnf.j2
+    dest: /etc/mysql/conf.d/mysqld_openstack.cnf
+- name: Restart MySQL server
+  become: yes
+  service:
+    name: mysql
+    state: restarted
+- name: Secure the database by running mysql_secure_installation script
+  shell: mysql_secure_installation

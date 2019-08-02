@@ -1,0 +1,6 @@
+---
+# tasks file for database
+- name: Install MariaDB for Debian OS family
+  tags: [ mariadb ]
+  when: ansible_os_family == "Debian"
+  include: mariadb.deb.yml

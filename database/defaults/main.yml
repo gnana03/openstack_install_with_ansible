@@ -1,0 +1,77 @@
+---
+# defaults file for openstack
+# OpenStack role default variables
+
+# Deployment flavor
+all_in_one: False
+
+# User credentials
+admin_test123: test123
+demo_test123: test123
+
+# Common services credentials
+mysql_root_test123: test123
+rabbit_openstack_test123: test123
+MariaDB_root_pass: dGVzdDEyMwo=
+psql_version: 9.5
+
+# OpenStack services credentials
+keystone_test123: test123
+glance_test123: test123
+nova_test123: test123
+neutron_test123: test123
+metadata_proxy_shared_secret: secret
+cinder_test123: test123
+swift_test123: test123
+heat_test123: test123
+heat_domain_test123: test123
+ceilometer_test123: test123
+
+# Service nodes configuration
+nodes:
+  controller:
+    management_interface: eth0
+    management_ip_address: '10.0.0.11'
+  network:
+    management_interface: eth0
+    management_ip_address: '10.0.0.21'
+    tunnel_interface: eth1
+    tunnel_ip_address: '10.0.1.21'
+    external_interface: eth2
+  compute:
+    management_interface: eth0
+    management_ip_address: '10.0.0.31'
+    tunnel_interface: eth1
+    tunnel_ip_address: '10.0.1.31'
+    storage_interface: eth2
+    storage_ip_address: '10.0.2.31'
+  block:
+    storage_device: sdb
+    management_interface: eth0
+    management_ip_address: '10.0.0.41'
+    storage_interface: eth1
+    storage_ip_address: '10.0.2.41'
+  object:
+    storage_device: sdb
+    management_interface: eth0
+    management_ip_address: '10.0.0.51'
+    storage_interface: eth1
+    storage_ip_address: '10.0.2.51'
+
+# Network-related configuration
+networking:
+  management:
+    network: '10.0.0.0/24'
+  tunnel:
+    network: '10.0.1.0/24'
+  external:
+    address: '203.0.113.10'
+    netmask: '255.255.255.0'
+    network: '203.0.113.0/24'
+    allocation_pool:
+      start: '203.0.113.101'
+      end: '203.0.113.200'
+    gateway: '203.0.113.1'
+  storage:
+    network: '10.0.2.0/24'
+
